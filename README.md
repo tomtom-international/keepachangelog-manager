@@ -1,22 +1,8 @@
-<!--
-Copyright (c) 2022 - 2022 TomTom N.V.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
-
 # (Keep a) Changelog Manager
 
 Python package allowing you to manage your `CHANGELOG.md` files
 
-![gif](resources/usage.gif)
+![gif](https://raw.githubusercontent.com/tomtom-international/keepachangelog-manager/master/resources/usage.gif)
 
 ## Installation
 
@@ -219,7 +205,7 @@ For example:
 
 Will result in something alike:
 
-![Draft Release Example](resources/draft_example.png)
+![Draft Release Example](https://raw.githubusercontent.com/tomtom-international/keepachangelog-manager/master/resources/draft_example.png)
 
 Providing the `--apply` flag will update and publish the draft Release.
 
