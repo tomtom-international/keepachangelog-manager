@@ -63,8 +63,10 @@ jobs:
         with:
           version: ${{ steps.version.outputs.version }}
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
         with:
-          branch: ${{ github.event.release.target_commitish }}
-          commit_message: "docs: updated `CHANGELOG.md` for version ${{ steps.version.outputs.version }}"
-          file_pattern: CHANGELOG.md
+          add-paths: ./CHANGELOG.md
+          delete-branch: true
+          commit-message: "docs: update CHANGELOG.md for release v${{ steps.version.outputs.version }}"
+          title: "docs: update CHANGELOG.md for release v${{ steps.version.outputs.version }}"
