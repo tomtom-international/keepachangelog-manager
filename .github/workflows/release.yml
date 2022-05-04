@@ -23,8 +23,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      ARTIFACTORY_USERNAME: ${{ secrets.PYPI_USERNAME }}
-      ARTIFACTORY_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+      PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v3
