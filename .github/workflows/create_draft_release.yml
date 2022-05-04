@@ -20,6 +20,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -33,4 +36,4 @@ jobs:
         uses: ./draft-release
         with:
           repository: ${{ github.repository }}
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
