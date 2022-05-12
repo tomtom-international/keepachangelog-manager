@@ -29,12 +29,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Setup Python v3.8
+        uses: actions/setup-python@v3
         with:
-          fetch-depth: 0
+          python-version: '3.8'
 
       - name: Commisery
-        uses: KevinDeJong-TomTom/commisery-action@v0.3.0
+        uses: KevinDeJong-TomTom/commisery-action@v1.1.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           pull_request: ${{ github.event.number }}
