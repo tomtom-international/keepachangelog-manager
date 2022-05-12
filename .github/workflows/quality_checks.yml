@@ -32,7 +32,7 @@ jobs:
       - name: Setup Python v3.8
         uses: actions/setup-python@v3
         with:
-          python-version: '3.7'
+          python-version: '3.8'
 
       - name: Commisery
         uses: KevinDeJong-TomTom/commisery-action@v1.1.0
