@@ -34,7 +34,7 @@ jobs:
           fetch-depth: 0
 
       - name: Commisery
-        uses: KevinDeJong-TomTom/commisery-action@v0.3.0
+        uses: KevinDeJong-TomTom/commisery-action@v1.1.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           pull_request: ${{ github.event.number }}
