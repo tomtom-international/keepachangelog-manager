@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+- GitHub Releases and associated tags are now both prefixed with `v` (i.e. `v1.0.0` iso `1.0.0`)
+
+## [1.0.1] - 2022-05-04
+### Changed
 - Updated README.md to be compatible with PyPi
 
 ## [1.0.0] - 2022-05-04
