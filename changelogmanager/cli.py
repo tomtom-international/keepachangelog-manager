@@ -120,6 +120,10 @@ def validate(_: Mapping) -> None:
 def release(ctx: Mapping, apply: bool, override_version: Optional[str]) -> None:
     """Release changes added to [Unreleased] block"""
 
+    # Strip `v` from the provided version tag
+    if override_version.startswith("v"):
+        override_version = override_version[1:]
+
     changelog = ctx.obj["changelog"]
     changelog.release(override_version)
 
