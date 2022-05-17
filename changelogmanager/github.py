@@ -140,13 +140,13 @@ class GitHub:
             )
             return body
 
-        version = changelog.suggest_future_version()
+        version = f"v{str(changelog.suggest_future_version())}"
         self.__github_request(
             method=HttpMethods.POST,
             api="releases",
             data={
                 "tag_name": str(version),
-                "name": f"Release v{version}",
+                "name": f"Release {version}",
                 "draft": draft,
                 "body": generate_release_notes(changelog.get(UNRELEASED_ENTRY)),
             },
