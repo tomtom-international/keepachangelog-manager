@@ -35,7 +35,7 @@ jobs:
           python-version: '3.8'
 
       - name: Commisery
-        uses: KevinDeJong-TomTom/commisery-action@v1.1.0
+        uses: KevinDeJong-TomTom/commisery-action@v1.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           pull_request: ${{ github.event.number }}
