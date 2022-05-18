@@ -37,7 +37,7 @@ jobs:
       - name: Commisery
         uses: KevinDeJong-TomTom/commisery-action@v1.1.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
           pull_request: ${{ github.event.number }}
 
   keepachangelog:
@@ -46,6 +46,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: (Keep a) Changelog Manager - Validate
-        uses: ./validate
-  
+      - name: Setup Python 3.7
+        uses: actions/setup-python@v2
+        with: { python-version: '3.7' }
+
+      - name: Install Keepachangelog Manager
+        run: python3 -m pip install ./
+
+      - name: Creating Draft release
+        run: changelogmanager --error-format github validate
