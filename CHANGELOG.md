@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Releasing a Changelog containing no previously released version will now result in version `0.0.1` to be released
 
+### Removed
+- Removed the `keepachangelog-draft-release`, `keepachangelog-release` and `keepachangelog-validate` actions as these have only been intended for internal use.
+
 ## [1.0.3] - 2022-05-17
 ### Fixed
 - The option `--override-version` accepts versions prefixed with v`
