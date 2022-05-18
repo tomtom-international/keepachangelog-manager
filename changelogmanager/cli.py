@@ -142,31 +142,39 @@ def add(ctx: Mapping, change_type: str, message: str) -> None:
     """Command to add a new message to the CHANGELOG.md"""
     apply = True
     changelog_entry = {}
- 
+
     prompts = []
     if not change_type:
-        prompts.append({
-            "type": "list",
-            "name": "change_type",
-            "message": "Specify the type of your change",
-            "choices": TypesOfChange,
-        })
-    
+        prompts.append(
+            {
+                "type": "list",
+                "name": "change_type",
+                "message": "Specify the type of your change",
+                "choices": TypesOfChange,
+            }
+        )
+
     if not message:
-        prompts.append({
-            "type": "input",
-            "name": "message",
-            "message": "Message of the changelog entry to add"
-        })
-    
-    if len (prompts) > 0:
+        prompts.append(
+            {
+                "type": "input",
+                "name": "message",
+                "message": "Message of the changelog entry to add",
+            }
+        )
+
+    if len(prompts) > 0:
         changelog_entry = inquirer2.prompt.prompt(prompts)
-        apply =  inquirer2.prompt.prompt([{
-            "type": "confirm",
-            "name": "confirmation",
-            "message": "Apply changes to your CHANGELOG.md",
-            "default": True,
-        }]).get("confirmation")
+        apply = inquirer2.prompt.prompt(
+            [
+                {
+                    "type": "confirm",
+                    "name": "confirmation",
+                    "message": "Apply changes to your CHANGELOG.md",
+                    "default": True,
+                }
+            ]
+        ).get("confirmation")
 
     changelog_entry.setdefault("change_type", change_type)
     changelog_entry.setdefault("message", message)
@@ -191,7 +199,7 @@ def github_release(ctx, repository: str, github_token: str, draft: bool) -> None
     """Deletes all releases marked as 'Draft' on GitHub and creates a new 'Draft'-release"""
 
     changelog = ctx.obj["changelog"]
-    
+
     github = GitHub(repository=repository, token=github_token)
     github.delete_draft_releases()
     github.create_release(changelog=changelog, draft=draft)
