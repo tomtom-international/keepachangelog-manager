@@ -32,7 +32,7 @@ from changelogmanager.change_types import (
 )
 
 
-INITIAL_VERSION = "0.0.1"
+INITIAL_VERSION = Version("0.0.1")
 
 
 class Changelog:
@@ -92,6 +92,10 @@ class Changelog:
     def release(self, override_version: Optional[str] = None) -> None:
         """Releases the Unreleased version"""
 
+        # Strip `v` from the provided version tag
+        if override_version and override_version.startswith("v"):
+            override_version = override_version[1:]
+
         try:
             _version = (
                 Version(override_version)
@@ -108,7 +112,7 @@ class Changelog:
                 message=f"Unable release already released version '{_version}'",
             )
 
-        if _version < self.version():
+        if not self.__has_only_unreleased_version() and _version < self.version():
             raise logging.Error(
                 file_path=self.get_file_path(),
                 message=f"Unable release versions older than last release '{self.version()}'",
@@ -176,9 +180,7 @@ class Changelog:
     def suggest_future_version(self) -> Version:
         """Suggests a future version based on the [Unreleased]-changes"""
 
-        unreleased_entry = self.get(UNRELEASED_ENTRY)
-
-        if len(self.__changelog) == 1:
+        if self.__has_only_unreleased_version():
             return INITIAL_VERSION
 
         def determine_version(unreleased: Mapping, prev_version: Version):
@@ -195,13 +197,17 @@ class Changelog:
 
             return prev_version.next_patch()
 
-        return determine_version(unreleased_entry, self.version())
+        return determine_version(self.get(UNRELEASED_ENTRY), self.version())
 
     def write_to_file(self) -> None:
         """Updates CHANGELOG.md based on the Keep a Changelog standard"""
 
         with open(self.__changelog_file_path, "w", encoding="UTF-8") as file_handle:
             file_handle.write(self.__str__())
+
+    def __has_only_unreleased_version(self):
+        """Returns True when the changelog only contains an Unreleased version"""
+        return UNRELEASED_ENTRY in self.__changelog and len(self.__changelog) == 1
 
     def __str__(self):
         """String representation"""

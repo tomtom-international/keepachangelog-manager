@@ -47,13 +47,15 @@ def main(
     # Pass changelog configuration to sub-commands
     ctx.ensure_object(dict)
 
-    logging.config(logging.formatters.Llvm() if error_format == "llvm" else logging.formatters.GitHub())
+    logging.config(
+        logging.formatters.Llvm()
+        if error_format == "llvm"
+        else logging.formatters.GitHub()
+    )
 
     if config:
         component = get_component_from_config(config=config, component=component)
-        changelog = ChangelogReader(
-            file_path=component.get("changelog")
-        ).read()
+        changelog = ChangelogReader(file_path=component.get("changelog")).read()
         ctx.obj["changelog"] = Changelog(
             file_path=component.get("changelog"), changelog=changelog
         )
@@ -104,7 +106,6 @@ def version(ctx: Mapping, reference: str) -> None:
 @pass_context
 def validate(_: Mapping) -> None:
     """Command to validate the CHANGELOG.md for inconsistencies"""
-    ...
 
 
 @main.command()
@@ -119,10 +120,6 @@ def validate(_: Mapping) -> None:
 @pass_context
 def release(ctx: Mapping, apply: bool, override_version: Optional[str]) -> None:
     """Release changes added to [Unreleased] block"""
-
-    # Strip `v` from the provided version tag
-    if override_version.startswith("v"):
-        override_version = override_version[1:]
 
     changelog = ctx.obj["changelog"]
     changelog.release(override_version)
