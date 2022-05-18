@@ -193,21 +193,22 @@ Usage: changelogmanager github-release [OPTIONS]
 Options:
   -r, --repository TEXT    Repository  [required]
   -t, --github-token TEXT  Github Token  [required]
-  --apply / --not-apply    Apply (release/publish) the draft release
+  --draft / --release      Update/Create the GitHub Release in either Draft or
+                           Release state
   --help                   Show this message and exit.
 ```
 
 For example:
 
 ```sh
-% changelogmanager github-release --github-token <PAT> --repository tomtom-international/cicd-changelog-manager
+% changelogmanager github-release --github-token <PAT> --repository tomtom-international/keepachangelog-manager
 ```
 
 Will result in something alike:
 
 ![Draft Release Example](https://raw.githubusercontent.com/tomtom-international/keepachangelog-manager/master/resources/draft_example.png)
 
-Providing the `--apply` flag will update and publish the draft Release.
+Providing the `--release` flag will update and publish the draft Release.
 
 ### Working with multiple CHANGELOG.md files in a single repository
 
