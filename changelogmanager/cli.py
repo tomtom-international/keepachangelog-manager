@@ -17,6 +17,7 @@
 from typing import Mapping, Optional
 
 from click import group, option, pass_context, Choice, File
+import inquirer2.prompt
 import llvm_diagnostics as logging
 
 from changelogmanager.change_types import TypesOfChange
@@ -110,24 +111,18 @@ def validate(_: Mapping) -> None:
 
 @main.command()
 @option(
-    "--apply/--not-apply", default=False, help="Apply changes to the CHANGELOG.md file"
-)
-@option(
     "--override-version",
     default=None,
     help="Version to release, defaults to auto-resolve",
 )
 @pass_context
-def release(ctx: Mapping, apply: bool, override_version: Optional[str]) -> None:
+def release(ctx: Mapping, override_version: Optional[str]) -> None:
     """Release changes added to [Unreleased] block"""
 
     changelog = ctx.obj["changelog"]
     changelog.release(override_version)
 
-    if apply:
-        changelog.write_to_file()
-    else:
-        print(changelog)
+    changelog.write_to_file()
 
 
 @main.command()
@@ -135,29 +130,52 @@ def release(ctx: Mapping, apply: bool, override_version: Optional[str]) -> None:
     "-t",
     "--change-type",
     type=Choice(TypesOfChange),
-    prompt="\033[92mSpecify the type of your change\033[0m",
     help="Type of the change",
 )
 @option(
     "-m",
     "--message",
-    prompt="\033[92mMessage of the changelog entry to add\033[0m",
     help="Changelog entry",
 )
-@option(
-    "--apply/--not-apply", default=False, help="Apply changes to the CHANGELOG.md file"
-)
 @pass_context
-def add(ctx: Mapping, change_type: str, message: str, apply: bool) -> None:
+def add(ctx: Mapping, change_type: str, message: str) -> None:
     """Command to add a new message to the CHANGELOG.md"""
+    apply = True
+    changelog_entry = {}
+ 
+    prompts = []
+    if not change_type:
+        prompts.append({
+            "type": "list",
+            "name": "change_type",
+            "message": "Specify the type of your change",
+            "choices": TypesOfChange,
+        })
+    
+    if not message:
+        prompts.append({
+            "type": "input",
+            "name": "message",
+            "message": "Message of the changelog entry to add"
+        })
+    
+    if len (prompts) > 0:
+        changelog_entry = inquirer2.prompt.prompt(prompts)
+        apply =  inquirer2.prompt.prompt([{
+            "type": "confirm",
+            "name": "confirmation",
+            "message": "Apply changes to your CHANGELOG.md",
+            "default": True,
+        }]).get("confirmation")
+
+    changelog_entry.setdefault("change_type", change_type)
+    changelog_entry.setdefault("message", message)
 
     changelog = ctx.obj["changelog"]
-    changelog.add(change_type=change_type, message=message)
+    changelog.add(**changelog_entry)
 
     if apply:
         changelog.write_to_file()
-    else:
-        print(changelog)
 
 
 @main.command()

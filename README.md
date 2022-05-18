@@ -80,7 +80,6 @@ Options:
   -t, --change-type [added|changed|deprecated|removed|fixed|security]
                                   Type of the change
   -m, --message TEXT              Changelog entry
-  --apply / --not-apply           Apply changes to the CHANGELOG.md file
   --help                          Show this message and exit.
 ```
 
@@ -90,14 +89,16 @@ interface for defining the contents:
 ```sh
 % changelogmanager add
 
-Specify the type of your change (added, changed, deprecated, removed, fixed, security):
-Message of the changelog entry to add:
+? Specify the type of your change 
+? Message of the changelog entry to add  
+? Apply changes to your CHANGELOG.md  (Y/n)
+
 ```
 
 In addition, you can provide a single command as well:
 
 ```sh
-% changelogmanager add --change-type added --message "Added an example to the documentation" --apply
+% changelogmanager add --change-type added --message "Added an example to the documentation"
 ```
 
 This will create a new `[Unreleased]` entry in your `CHANGELOG.md`:
@@ -166,7 +167,6 @@ Usage: changelogmanager release [OPTIONS]
   Release changes added to [Unreleased] block
 
 Options:
-  --apply / --not-apply    Apply changes to the CHANGELOG.md file
   --override-version TEXT  Version to release, defaults to auto-resolve
   --help                   Show this message and exit.
 ```
@@ -174,7 +174,7 @@ Options:
 For example:
 
 ```sh
-% changelogmanager release --apply
+% changelogmanager release
 ```
 
 This will rename the `[Unreleased]` section and add the current date next to it, marking
