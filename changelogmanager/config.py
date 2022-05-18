@@ -48,8 +48,6 @@ def get_component_from_config(config: str, component: str):
             if component.get("name") == name:
                 return component
 
-        raise logging.Error(
-            file_path=config, message=f"Unknown component name: {name}"
-        )
+        raise logging.Error(file_path=config, message=f"Unknown component name: {name}")
 
     return filter_component(project.get("components"), component)

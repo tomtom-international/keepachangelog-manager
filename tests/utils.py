@@ -18,13 +18,34 @@ import pytest
 
 @pytest.fixture(scope="session")
 def empty_changelog_file(tmpdir_factory):
+    """Initial Changelog file"""
     changelog = tmpdir_factory.mktemp("data").join("CHANGELOG.md")
     changelog.write_text("# Changelog", encoding="UTF-8")
     return changelog
 
 
 @pytest.fixture(scope="session")
+def unreleased_changelog_file(tmpdir_factory):
+    """Changelog file containing only an unreleased version"""
+    changelog = tmpdir_factory.mktemp("data").join("CHANGELOG.md")
+    changelog.write_text(
+        """\
+# Changelog
+
+## [Unreleased]
+### Added
+- New feature
+
+### Changed
+- Changed another feature
+""",
+        encoding="UTF-8",
+    )
+    return changelog
+
+@pytest.fixture(scope="session")
 def changelog_file(tmpdir_factory):
+    """Changelog file containing both released and unreleased versions"""
     changelog = tmpdir_factory.mktemp("data").join("CHANGELOG.md")
     changelog.write_text(
         """\
@@ -53,28 +74,48 @@ def changelog_file(tmpdir_factory):
     return changelog
 
 
-def get_changelog_expectations(released: bool = False):
+def get_changelog_expectations(released: bool = False, initial = False):
+    """Check expectations"""
 
     initial_version = {}
 
     if released:
-        initial_version = {
-            "1.1.0": {
-                "metadata": {
-                    "version": "1.1.0",
-                    "release_date": "2100-12-03",
-                    "semantic_version": {
-                        "major": 1,
-                        "minor": 1,
-                        "patch": 0,
-                        "prerelease": None,
-                        "buildmetadata": None,
+        if initial:
+            initial_version = {
+                "0.0.1": {
+                    "metadata": {
+                        "version": "0.0.1",
+                        "release_date": "2100-12-03",
+                        "semantic_version": {
+                            "major": 0,
+                            "minor": 0,
+                            "patch": 1,
+                            "prerelease": None,
+                            "buildmetadata": None,
+                        },
                     },
-                },
-                "added": ["New feature"],
-                "changed": ["Changed another feature"],
+                    "added": ["New feature"],
+                    "changed": ["Changed another feature"],
+                }
             }
-        }
+        else:
+            initial_version = {
+                "1.1.0": {
+                    "metadata": {
+                        "version": "1.1.0",
+                        "release_date": "2100-12-03",
+                        "semantic_version": {
+                            "major": 1,
+                            "minor": 1,
+                            "patch": 0,
+                            "prerelease": None,
+                            "buildmetadata": None,
+                        },
+                    },
+                    "added": ["New feature"],
+                    "changed": ["Changed another feature"],
+                }
+            }
     else:
         initial_version = {
             "unreleased": {
@@ -83,6 +124,11 @@ def get_changelog_expectations(released: bool = False):
                 "changed": ["Changed another feature"],
             }
         }
+
+    if initial:
+        return OrderedDict(
+            **initial_version
+        )
 
     return OrderedDict(
         {
