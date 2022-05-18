@@ -6,10 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Removed
-- Removed the `--apply` and `--no-apply` flags from the `add` and `release` command.
+- Removed the `--apply` and `--no-apply` flags from the `add`, `release` and `github-release` command.
 
 ### Changed
 - Improved user interaction for the `add` command
+
+### Added
+- The `github-release` command now supports the `--draft/--release` flags to indicate the GitHub release status
 
 ## [2.0.0] - 2022-05-18
 ### Fixed

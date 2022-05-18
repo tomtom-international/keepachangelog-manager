@@ -182,16 +182,16 @@ def add(ctx: Mapping, change_type: str, message: str) -> None:
 @option("-r", "--repository", required=True, help="Repository")
 @option("-t", "--github-token", required=True, help="Github Token")
 @option(
-    "--apply/--not-apply",
-    default=False,
-    help="Apply (release/publish) the draft release",
+    "--draft/--release",
+    default=True,
+    help="Update/Create the GitHub Release in either Draft or Release state",
 )
 @pass_context
-def github_release(ctx, repository: str, github_token: str, apply: bool) -> None:
+def github_release(ctx, repository: str, github_token: str, draft: bool) -> None:
     """Deletes all releases marked as 'Draft' on GitHub and creates a new 'Draft'-release"""
 
     changelog = ctx.obj["changelog"]
-
+    
     github = GitHub(repository=repository, token=github_token)
     github.delete_draft_releases()
-    github.create_release(changelog=changelog, draft=not apply)
+    github.create_release(changelog=changelog, draft=draft)
