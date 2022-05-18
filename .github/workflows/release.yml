@@ -73,5 +73,5 @@ jobs:
         with:
           add-paths: ./CHANGELOG.md
           delete-branch: true
-          commit-message: "docs: update CHANGELOG.md for release v${{ steps.version.outputs.version }}"
-          title: "docs: update CHANGELOG.md for release v${{ steps.version.outputs.version }}"
+          commit-message: "docs: update CHANGELOG.md for release ${{ steps.version.outputs.version }}"
+          title: "docs: update CHANGELOG.md for release ${{ steps.version.outputs.version }}"
