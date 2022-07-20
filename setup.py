@@ -59,4 +59,9 @@ setup(
     classifiers=(
       'License :: OSI Approved :: Apache Software License',
     ),
+    url='https://github.com/tomtom-international/keepachangelog-manager',
+    project_urls={
+      'Bug Tracker': 'https://github.com/tomtom-international/keepachangelog-manager/issues',
+      'Source Code': 'https://github.com/tomtom-international/keepachangelog-manager',
+    },
 )
