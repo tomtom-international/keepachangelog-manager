@@ -151,7 +151,7 @@ Taking the following `CHANGELOG.md` as reference:
 % changelogmanager version --reference previous
 2.0.0
 
-% changelogmanager version --future
+% changelogmanager version --reference future
 2.2.0
 ```
 
