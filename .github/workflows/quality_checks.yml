@@ -31,11 +31,10 @@ jobs:
     steps:
       - name: Setup Python v3.8
         uses: actions/setup-python@v4
-        with:
-          python-version: '3.8'
+        with: { python-version: '3.8' }
 
       - name: Commisery
-        uses: KevinDeJong-TomTom/commisery-action@v1.1.1
+        uses: tomtom-international/commisery-action@v1
         with:
           token: ${{ github.token }}
           pull_request: ${{ github.event.number }}
