@@ -204,9 +204,10 @@ class Changelog:
         """Stores the Changelog file in JSON format"""
 
         content = self.get(version=version)
+        json_data = [value for _, value in content.items()]
 
         with open(file, "w", encoding="UTF-8") as file_handle:
-            file_handle.write(json.dumps(content))
+            file_handle.write(json.dumps(json_data))
 
     def write_to_file(self) -> None:
         """Updates CHANGELOG.md based on the Keep a Changelog standard"""
