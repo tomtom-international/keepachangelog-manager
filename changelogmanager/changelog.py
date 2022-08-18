@@ -14,6 +14,7 @@
 
 """Changelog"""
 
+import json
 import os
 
 from collections import OrderedDict
@@ -81,13 +82,13 @@ class Changelog:
         if not version:
             return self.__changelog
 
-        if version not in self.__changelog:
+        if str(version) not in self.__changelog:
             raise logging.Warning(
                 file_path=self.get_file_path(),
                 message=f"Version '{version}' not available in the Changelog",
             )
 
-        return self.__changelog[version]
+        return self.__changelog[str(version)]
 
     def release(self, override_version: Optional[str] = None) -> None:
         """Releases the Unreleased version"""
@@ -198,6 +199,14 @@ class Changelog:
             return prev_version.next_patch()
 
         return determine_version(self.get(UNRELEASED_ENTRY), self.version())
+
+    def write_to_json(self, file: str, version: Optional[str] = None) -> None:
+        """Stores the Changelog file in JSON format"""
+
+        content = self.get(version=version)
+
+        with open(file, "w", encoding="UTF-8") as file_handle:
+            file_handle.write(json.dumps(content))
 
     def write_to_file(self) -> None:
         """Updates CHANGELOG.md based on the Keep a Changelog standard"""
