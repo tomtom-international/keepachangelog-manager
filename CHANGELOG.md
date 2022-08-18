@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- The `release` command is working correct again
+
+## [3.2.0] - 2022-08-18
 ### Added
 - The command `to-json` allows you to export the changelog contents in JSON format (useful for external automation purposes)
 

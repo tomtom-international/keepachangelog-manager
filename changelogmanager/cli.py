@@ -116,9 +116,7 @@ def validate(_: Mapping) -> None:
     help="Version to release, defaults to auto-resolve",
 )
 @pass_context
-def release(
-    ctx: Mapping, override_version: Optional[str], json_file: Optional[str]
-) -> None:
+def release(ctx: Mapping, override_version: Optional[str]) -> None:
     """Release changes added to [Unreleased] block"""
 
     changelog = ctx.obj["changelog"]
