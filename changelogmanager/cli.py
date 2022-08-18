@@ -116,13 +116,28 @@ def validate(_: Mapping) -> None:
     help="Version to release, defaults to auto-resolve",
 )
 @pass_context
-def release(ctx: Mapping, override_version: Optional[str]) -> None:
+def release(
+    ctx: Mapping, override_version: Optional[str], json_file: Optional[str]
+) -> None:
     """Release changes added to [Unreleased] block"""
 
     changelog = ctx.obj["changelog"]
     changelog.release(override_version)
 
     changelog.write_to_file()
+
+
+@main.command()
+@option(
+    "--file-name",
+    default="CHANGELOG.json",
+    help="Filename of the JSON output",
+)
+@pass_context
+def to_json(ctx: Mapping, file_name: str) -> None:
+    """Exports the contents of the CHANGELOG.md to a JSON file"""
+    changelog = ctx.obj["changelog"]
+    changelog.write_to_json(file=file_name)
 
 
 @main.command()

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- The command `to-json` allows you to export the changelog contents in JSON format (useful for external automation purposes)
+
 ## [3.1.0] - 2022-07-20
 ### Added
 - References to the Homepage and Issue Tracker in the package metadata

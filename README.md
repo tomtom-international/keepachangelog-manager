@@ -32,6 +32,7 @@ Commands:
   create          Command to create a new (empty) CHANGELOG.md
   github-release  Deletes all releases marked as 'Draft' on GitHub and...
   release         Release changes added to [Unreleased] block
+  to-json         Exports the contents of the CHANGELOG.md to a JSON file
   validate        Command to validate the CHANGELOG.md for inconsistencies
   version         Command to retrieve versions from a CHANGELOG.md
 ```
@@ -179,6 +180,50 @@ For example:
 
 This will rename the `[Unreleased]` section and add the current date next to it, marking
 the change as "Released"
+
+### Export your CHANGELOG.md to JSON
+
+The `to-json` command allows you to export the `CHANGELOG.md` file into a JSON format:
+
+```
+Usage: changelogmanager to-json [OPTIONS]
+
+  Exports the contents of the CHANGELOG.md to a JSON file
+
+Options:
+  --file-name TEXT  Filename of the JSON output
+  --help            Show this message and exit.
+```
+
+For example:
+
+```sh
+% changelogmanager to-json
+```
+
+This will create a file named `CHANGELOG.json` contain content similar to:
+
+```json
+{
+    "3.2.0": {
+        "metadata": {
+          "version": "3.2.0",
+          "release_date": "2022-08-18",
+          "semantic_version": {
+            "major": 3,
+            "minor": 2,
+            "patch": 0,
+            "prerelease": null,
+            "buildmetadata": null
+          }
+        },
+        "added": [
+            "The command `to-json` allows you to export the changelog contents in JSON format (useful for external automation purposes)"
+        ]
+    }
+    "3.1.0": { ... }
+}
+```
 
 ### Create/Update Release in GitHub
 
