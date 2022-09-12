@@ -23,7 +23,7 @@ from changelogmanager import cli
 def main():
     """Entrypoint"""
     try:
-        cli.main(None, None, None, None)
+        cli.main(None, None, None, None, None)
     # Exit gracefully in case an Warning or Information exception was raised
     except (logging.Info, logging.Warning) as exc_info:
         exc_info.report()
