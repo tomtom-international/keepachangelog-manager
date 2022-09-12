@@ -25,6 +25,7 @@ Options:
   -f, --error-format [llvm|github]
                                   Type of formatting to apply to error
                                   messages
+  --input-file TEXT               Changelog file to work with
   --help                          Show this message and exit.
 
 Commands:
