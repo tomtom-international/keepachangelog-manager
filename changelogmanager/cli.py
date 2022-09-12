@@ -39,9 +39,14 @@ VERSION_REFERENCES = ["previous", "current", "future"]
     default="llvm",
     help="Type of formatting to apply to error messages",
 )
+@option("--input-file", default="CHANGELOG.md", help="Changelog file to work with")
 @pass_context
 def main(
-    ctx: Mapping, config: Optional[File], component: str, error_format: bool
+    ctx: Mapping,
+    config: Optional[File],
+    component: str,
+    error_format: bool,
+    input_file: str,
 ) -> int:
     """(Keep a) Changelog Manager"""
 
@@ -61,8 +66,8 @@ def main(
             file_path=component.get("changelog"), changelog=changelog
         )
     else:
-        changelog = ChangelogReader().read()
-        ctx.obj["changelog"] = Changelog(changelog=changelog)
+        changelog = ChangelogReader(file_path=input_file).read()
+        ctx.obj["changelog"] = Changelog(file_path=input_file, changelog=changelog)
 
 
 @main.command()
