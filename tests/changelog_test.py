@@ -30,7 +30,7 @@ from .utils import empty_changelog_file, changelog_file, unreleased_changelog_fi
 
 
 def test_default_changelog(mocker):
-    """Verfies that, by default, a `README.md` file is used as input."""
+    """Verifies that, by default, a `CHANGELOG.md` file is used as input."""
 
     mocker.patch("keepachangelog.to_dict", return_value={})
 
