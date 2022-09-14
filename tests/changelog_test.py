@@ -209,7 +209,7 @@ def test_release_override_duplicate_version(changelog_file):
         changelog.release(override_version="1.0.0")
 
     assert (
-        str(exc_info.value.message) == "Unable release already released version '1.0.0'"
+        str(exc_info.value.message) == "Unable to release an already released version '1.0.0'"
     )
 
 
@@ -225,7 +225,7 @@ def test_release_override_older_version(changelog_file):
 
     assert (
         str(exc_info.value.message)
-        == "Unable release versions older than last release '1.0.0'"
+        == "Unable to release a version older than the last release '1.0.0'"
     )
 
 
