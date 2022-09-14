@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Report an error when using the `release` command without the `[Unreleased]` section being present
 
 ### Changed
-- The to-json output is now prettified
+- The `to-json` output is now prettified
 
 ## [3.3.0] - 2022-09-12
 ### Added
