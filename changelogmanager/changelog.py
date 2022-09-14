@@ -93,6 +93,12 @@ class Changelog:
     def release(self, override_version: Optional[str] = None) -> None:
         """Releases the Unreleased version"""
 
+        if UNRELEASED_ENTRY not in self.__changelog:
+            raise logging.Error(
+                file_path=self.get_file_path(),
+                message="Unable to release without [Unreleased] section",
+            )
+
         # Strip `v` from the provided version tag
         if override_version and override_version.startswith("v"):
             override_version = override_version[1:]
@@ -110,13 +116,13 @@ class Changelog:
         if str(_version) in self.get().keys():
             raise logging.Error(
                 file_path=self.get_file_path(),
-                message=f"Unable release already released version '{_version}'",
+                message=f"Unable to release an already released version '{_version}'",
             )
 
         if not self.__has_only_unreleased_version() and _version < self.version():
             raise logging.Error(
                 file_path=self.get_file_path(),
-                message=f"Unable release versions older than last release '{self.version()}'",
+                message=f"Unable to release a version older than the last release '{self.version()}'",
             )
 
         def update_unreleased_version(changelog: Mapping, new_version: Version):

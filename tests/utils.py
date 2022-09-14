@@ -67,7 +67,31 @@ def changelog_file(tmpdir_factory):
 
 ## [0.9.4] - 2022-03-13
 ### Deprecated
-- Deprecated publi API call
+- Deprecated public API call
+""",
+        encoding="UTF-8",
+    )
+    return changelog
+
+
+@pytest.fixture(scope="session")
+def released_only_changelog_file(tmpdir_factory):
+    """Changelog file containing released versions"""
+    changelog = tmpdir_factory.mktemp("data").join("CHANGELOG.md")
+    changelog.write_text(
+        """\
+# Changelog
+
+## [1.0.0] - 2022-03-14
+### Removed
+- Removed deprecated API call
+
+### Fixed
+- Fixed some bug
+
+## [0.9.4] - 2022-03-13
+### Deprecated
+- Deprecated public API call
 """,
         encoding="UTF-8",
     )
@@ -160,7 +184,7 @@ def get_changelog_expectations(released: bool = False, initial = False):
                         "buildmetadata": None,
                     },
                 },
-                "deprecated": ["Deprecated publi API call"],
+                "deprecated": ["Deprecated public API call"],
             },
         }
     )

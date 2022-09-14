@@ -26,7 +26,7 @@ from changelogmanager.changelog import (
     Changelog,
 )
 
-from .utils import empty_changelog_file, changelog_file, unreleased_changelog_file, get_changelog_expectations
+from .utils import empty_changelog_file, changelog_file, released_only_changelog_file, unreleased_changelog_file, get_changelog_expectations
 
 
 def test_default_changelog(mocker):
@@ -209,12 +209,12 @@ def test_release_override_duplicate_version(changelog_file):
         changelog.release(override_version="1.0.0")
 
     assert (
-        str(exc_info.value.message) == "Unable release already released version '1.0.0'"
+        str(exc_info.value.message) == "Unable to release an already released version '1.0.0'"
     )
 
 
 def test_release_override_older_version(changelog_file):
-    """Verifies that and Exception is raised when attempting to release and older version"""
+    """Verifies that an Exception is raised when attempting to release an older version"""
 
     changelog = Changelog(
         file_path=changelog_file,
@@ -225,7 +225,22 @@ def test_release_override_older_version(changelog_file):
 
     assert (
         str(exc_info.value.message)
-        == "Unable release versions older than last release '1.0.0'"
+        == "Unable to release a version older than the last release '1.0.0'"
+    )
+
+
+def test_release_override_no_unreleased_version(released_only_changelog_file):
+    """Verifies that an Exception is raised when attemping to release using --override-version without having the unreleased section"""
+
+    changelog = Changelog(
+        file_path=changelog_file,
+        changelog=ChangelogReader(file_path=released_only_changelog_file).read(),
+    )
+    with pytest.raises(logging.Error) as exc_info:
+        changelog.release(override_version="1.1.0")
+    assert (
+        str(exc_info.value.message)
+        == "Unable to release without [Unreleased] section"
     )
 
 
