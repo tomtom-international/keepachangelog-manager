@@ -213,7 +213,7 @@ class Changelog:
         json_data = [value for _, value in content.items()]
 
         with open(file, "w", encoding="UTF-8") as file_handle:
-            file_handle.write(json.dumps(json_data))
+            file_handle.write(json.dumps(json_data, indent=4))
 
     def write_to_file(self) -> None:
         """Updates CHANGELOG.md based on the Keep a Changelog standard"""
