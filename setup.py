@@ -38,7 +38,7 @@ setup(
         "Click>=8,<9",
         "pyyaml>=6,<7",
         "semantic_version>=2.9.0,<3",
-        "keepachangelog==2.0.0.dev2",
+        "keepachangelog==2.0.0.dev3",
         "urllib3>=1.25.11,<2",
         "llvm-diagnostics>=3.0.0,<4",
         'inquirer2==1.0.0',
