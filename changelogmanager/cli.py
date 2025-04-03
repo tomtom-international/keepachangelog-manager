@@ -17,7 +17,7 @@
 from typing import Mapping, Optional
 
 from click import group, option, pass_context, Choice, File
-import inquirer2.prompt
+import inquirer
 import llvm_diagnostics as logging
 
 from changelogmanager.change_types import TypesOfChange
@@ -165,7 +165,7 @@ def add(ctx: Mapping, change_type: str, message: str) -> None:
     if not change_type:
         prompts.append(
             {
-                "type": "list",
+                "kind": "list",
                 "name": "change_type",
                 "message": "Specify the type of your change",
                 "choices": TypesOfChange,
@@ -175,24 +175,24 @@ def add(ctx: Mapping, change_type: str, message: str) -> None:
     if not message:
         prompts.append(
             {
-                "type": "input",
+                "kind": "text",
                 "name": "message",
                 "message": "Message of the changelog entry to add",
             }
         )
 
     if len(prompts) > 0:
-        changelog_entry = inquirer2.prompt.prompt(prompts)
-        apply = inquirer2.prompt.prompt(
+        changelog_entry = inquirer.prompt(inquirer.load_from_list(prompts))
+        apply = inquirer.prompt(inquirer.load_from_list(
             [
                 {
-                    "type": "confirm",
+                    "kind": "confirm",
                     "name": "confirmation",
                     "message": "Apply changes to your CHANGELOG.md",
                     "default": True,
                 }
             ]
-        ).get("confirmation")
+        )).get("confirmation")
 
     changelog_entry.setdefault("change_type", change_type)
     changelog_entry.setdefault("message", message)
