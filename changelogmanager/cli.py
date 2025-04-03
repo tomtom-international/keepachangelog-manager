@@ -164,35 +164,32 @@ def add(ctx: Mapping, change_type: str, message: str) -> None:
     prompts = []
     if not change_type:
         prompts.append(
-            {
-                "kind": "list",
-                "name": "change_type",
-                "message": "Specify the type of your change",
-                "choices": TypesOfChange,
-            }
+            inquirer.List(
+                name = "change_type",
+                message = "Specify the type of your change",
+                choices = TypesOfChange
+            )
         )
 
     if not message:
         prompts.append(
-            {
-                "kind": "text",
-                "name": "message",
-                "message": "Message of the changelog entry to add",
-            }
+            inquirer.Text(
+                name = "message",
+                message = "Message of the changelog entry to add"
+            )
         )
 
     if len(prompts) > 0:
-        changelog_entry = inquirer.prompt(inquirer.load_from_list(prompts))
-        apply = inquirer.prompt(inquirer.load_from_list(
+        changelog_entry = inquirer.prompt(prompts)
+        apply = inquirer.prompt(
             [
-                {
-                    "kind": "confirm",
-                    "name": "confirmation",
-                    "message": "Apply changes to your CHANGELOG.md",
-                    "default": True,
-                }
+                inquirer.Confirm(
+                    name = "confirmation",
+                    message = "Apply changes to your CHANGELOG.md",
+                    default = True
+                )
             ]
-        )).get("confirmation")
+        ).get("confirmation")
 
     changelog_entry.setdefault("change_type", change_type)
     changelog_entry.setdefault("message", message)

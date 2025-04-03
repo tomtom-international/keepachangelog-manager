@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Fixed
-- Replace inquirer2 depedency with inquirer package as inquirer2 no longer exists on PyPI 
+- Replace `inquirer2` dependency with `inquirer` package as `inquirer2` no longer exists on PyPI 
 
 ## [3.3.1] - 2022-09-14
 ### Fixed
