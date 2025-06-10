@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Removed
+- Removed support for Python >=3.7,<=3.8 in favor of minimum version 3.9
+
+### Changed
+- Use `inquirer` instead of decomissioned `inquirer2`
+
 ## [3.3.1] - 2022-09-14
 ### Fixed
 - Report an error when using the `release` command without the `[Unreleased]` section being present
@@ -69,4 +76,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `validate` command to verify CHANGELOG.md consistency
 - Support for creating (Draft) releases on GitHub using the `github-release` command
 - Workflow to update the draft release notes when new changes are pushed to \`main\`
-

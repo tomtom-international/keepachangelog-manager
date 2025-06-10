@@ -16,8 +16,9 @@
 
 from typing import Mapping, Optional
 
+import inquirer
+
 from click import group, option, pass_context, Choice, File
-import inquirer2.prompt
 import llvm_diagnostics as logging
 
 from changelogmanager.change_types import TypesOfChange
@@ -158,49 +159,33 @@ def to_json(ctx: Mapping, file_name: str) -> None:
 @pass_context
 def add(ctx: Mapping, change_type: str, message: str) -> None:
     """Command to add a new message to the CHANGELOG.md"""
-    apply = True
     changelog_entry = {}
 
     prompts = []
     if not change_type:
         prompts.append(
-            {
-                "type": "list",
-                "name": "change_type",
-                "message": "Specify the type of your change",
-                "choices": TypesOfChange,
-            }
+            inquirer.List('change_type', message="Specify the type of your change", choices=TypesOfChange)
         )
 
     if not message:
         prompts.append(
-            {
-                "type": "input",
-                "name": "message",
-                "message": "Message of the changelog entry to add",
-            }
+            inquirer.Text('message', message="Message of the changelog entry to add")
         )
 
     if len(prompts) > 0:
-        changelog_entry = inquirer2.prompt.prompt(prompts)
-        apply = inquirer2.prompt.prompt(
-            [
-                {
-                    "type": "confirm",
-                    "name": "confirmation",
-                    "message": "Apply changes to your CHANGELOG.md",
-                    "default": True,
-                }
-            ]
-        ).get("confirmation")
+        prompts.append(
+            inquirer.List('confirm', message="Apply changes to your CHANGELOG.md", choices=["Yes", "No"], default="Yes")
+        )
+        changelog_entry = inquirer.prompt(prompts)
 
     changelog_entry.setdefault("change_type", change_type)
     changelog_entry.setdefault("message", message)
+    changelog_entry.setdefault("confirm", "Yes")
 
     changelog = ctx.obj["changelog"]
-    changelog.add(**changelog_entry)
+    changelog.add(change_type=changelog_entry["change_type"], message=changelog_entry["message"])
 
-    if apply:
+    if changelog_entry["confirm"] == "Yes":
         changelog.write_to_file()
 
 

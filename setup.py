@@ -33,15 +33,15 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=find_packages(),
-    python_requires=">=3.7",
+    python_requires=">=3.9",
     install_requires=(
-        "Click>=8,<9",
-        "pyyaml>=6,<7",
-        "semantic_version>=2.9.0,<3",
-        "keepachangelog==2.0.0.dev2",
-        "urllib3>=1.25.11,<2",
-        "llvm-diagnostics>=3.0.0,<4",
-        'inquirer2==1.0.0',
+        "Click>=8.2.1,<9",
+        "pyyaml>=6.0.2,<7",
+        "semantic_version>=2.10.0,<3",
+        "keepachangelog>=2.0.0,<3",
+        "urllib3>=2.4.0,<3",
+        "llvm-diagnostics>=3.0.1,<4",
+        'inquirer>=3.4.0,<4',
     ),
     setup_requires=(
         "setuptools_scm",
@@ -56,9 +56,9 @@ setup(
     zip_safe=True,
     license='Apache License 2.0',
     license_file='LICENSE.md',
-    classifiers=(
+    classifiers=([
       'License :: OSI Approved :: Apache Software License',
-    ),
+    ]),
     url='https://github.com/tomtom-international/keepachangelog-manager',
     project_urls={
       'Bug Tracker': 'https://github.com/tomtom-international/keepachangelog-manager/issues',
