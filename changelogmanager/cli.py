@@ -159,7 +159,6 @@ def to_json(ctx: Mapping, file_name: str) -> None:
 @pass_context
 def add(ctx: Mapping, change_type: str, message: str) -> None:
     """Command to add a new message to the CHANGELOG.md"""
-    apply = True
     changelog_entry = {}
 
     prompts = []
