@@ -31,9 +31,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python 3.7
+      - name: Set up Python 3.12.4
         uses: actions/setup-python@v4
-        with: { python-version: 3.7 }
+        with: { python-version: 3.12.4 }
 
       - name: Install dependencies
         run: |
@@ -52,9 +52,9 @@ jobs:
         with:
           ref: ${{ github.event.release.target_commitish }}
 
-      - name: Setup Python 3.7
+      - name: Setup Python 3.12.4
         uses: actions/setup-python@v4
-        with: { python-version: '3.7' }
+        with: { python-version: '3.12.4' }
 
       - name: Update version
         id: version
